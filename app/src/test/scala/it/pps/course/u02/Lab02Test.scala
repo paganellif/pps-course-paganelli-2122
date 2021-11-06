@@ -1,8 +1,8 @@
 package it.pps.course.u02
 
+import it.pps.course.u02.Lab02.{empty, fib, notEmpty, parityLiteralFunc, parityMethodSyntax, tailFib}
 import org.junit.jupiter.api.Assertions._
 import org.junit.jupiter.api.Test
-
 import it.pps.course.u02.Modules._
 import it.pps.course.u02.Optionals._
 import it.pps.course.u03.Lists.List._
@@ -69,6 +69,38 @@ class Lab02Test {
   @Test def TestFibonacci(): Unit = {
     val expected = Cons(0, Cons(1, Cons(1, Cons(2, Cons(3, Cons(5, Cons(8, Cons(13, Nil()))))))))
     assertEquals(expected, Stream.toList(Stream.take(Stream.fibs)(8)))
+  }
+
+  @Test def fibTest(): Unit = {
+    assertEquals(fib(0), 0)
+    assertEquals(fib(1), 1)
+    assertEquals(fib(5), 5)
+  }
+
+  @Test def tailFibTest(): Unit = {
+    assertEquals(tailFib(0), 0)
+    assertEquals(tailFib(1), 1)
+    assertEquals(tailFib(5), 5)
+  }
+
+  @Test def parityAnonymousFuncTest(): Unit = {
+    assertEquals(parityLiteralFunc(2), "even")
+    assertEquals(parityLiteralFunc(3), "odd")
+  }
+
+  @Test def parityMethodSyntaxTest(): Unit = {
+    assertEquals(parityMethodSyntax(2), "even")
+    assertEquals(parityMethodSyntax(3), "odd")
+  }
+
+  @Test def emptyPredicateTest(): Unit = {
+    assertFalse(empty("empty"))
+    assertTrue(empty(""))
+  }
+
+  @Test def notEmptyPredicateTest(): Unit = {
+    assertFalse(notEmpty(""))
+    assertTrue(notEmpty("notEmpty"))
   }
 
 }
