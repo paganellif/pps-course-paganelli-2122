@@ -1,6 +1,6 @@
 package it.pps.course.u02
 
-import it.pps.course.u02.Lab02.{empty, fib, genericNeg, notEmpty, parityLiteralFunc, parityMethodSyntax, tailFib}
+import it.pps.course.u02.Lab02._
 import org.junit.jupiter.api.Assertions._
 import org.junit.jupiter.api.Test
 import it.pps.course.u02.Modules._
@@ -114,6 +114,13 @@ class Lab02Test {
 
     assertTrue(stringPred("HELLO LELLO"))
     assertFalse(negStringPred("HELLO LELLO"))
+  }
+
+  @Test def curryingTest(): Unit = {
+    assertTrue(p1(1)(1)(1))
+    assertFalse(p2(3,2,1))
+    assertTrue(p3(5)(10)(15))
+    assertFalse(p4(15,10,5))
   }
 
 }
