@@ -54,4 +54,22 @@ object Lab02 {
 
   def compose[A](f: A => A, g: A => A)(a: A): A = f(g(a))
 
+  sealed trait Shape
+  case class Rectangle(b: Double, h: Double) extends Shape
+  case class Square(l: Double) extends Shape
+  case class Circle(r: Double) extends Shape {
+    val pi: Double = 3.14
+  }
+
+  def perimeter(shape: Shape): Double = shape match {
+    case r: Rectangle => r.b*2 + r.h*2
+    case s: Square => s.l*4
+    case c: Circle => 2*c.r*c.pi
+  }
+
+  def area(shape: Shape): Double = shape match {
+    case r: Rectangle => r.b * r.h
+    case s: Square => s.l * s.l
+    case c: Circle => c.r*c.r*c.pi
+  }
 }
