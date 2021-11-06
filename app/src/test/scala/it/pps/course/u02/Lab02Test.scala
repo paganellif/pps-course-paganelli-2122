@@ -123,4 +123,9 @@ class Lab02Test {
     assertFalse(p4(15,10,5))
   }
 
+  @Test def compositionTest(): Unit = {
+    assertEquals(compose[Int](_-1,_*2)(5), 9)
+    assertEquals(compose[String](_.concat(" LELLO"),_.concat("ELLO"))("H"), "HELLO LELLO")
+  }
+
 }

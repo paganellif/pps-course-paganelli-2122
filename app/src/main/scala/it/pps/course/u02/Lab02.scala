@@ -52,5 +52,6 @@ object Lab02 {
   def p3(x: Int)(y: Int)(z: Int): Boolean = x<=y && y<=z
   def p4(x: Int, y: Int, z: Int): Boolean = p3(x)(y)(z)
 
+  def compose[A](f: A => A, g: A => A)(a: A): A = f(g(a))
 
 }
