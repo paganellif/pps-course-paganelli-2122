@@ -1,6 +1,6 @@
 package it.pps.course.u02
 
-import it.pps.course.u02.Lab02.{empty, fib, notEmpty, parityLiteralFunc, parityMethodSyntax, tailFib}
+import it.pps.course.u02.Lab02.{empty, fib, genericNeg, notEmpty, parityLiteralFunc, parityMethodSyntax, tailFib}
 import org.junit.jupiter.api.Assertions._
 import org.junit.jupiter.api.Test
 import it.pps.course.u02.Modules._
@@ -101,6 +101,19 @@ class Lab02Test {
   @Test def notEmptyPredicateTest(): Unit = {
     assertFalse(notEmpty(""))
     assertTrue(notEmpty("notEmpty"))
+  }
+
+  @Test def genericNegTest(): Unit = {
+    val intPred: (Int => Boolean) = (a: Int) => if (a % 2 == 0) true else false
+    val negIntPred = genericNeg(intPred)
+    val stringPred: (String => Boolean) = (a: String) => a.contains("HELLO")
+    val negStringPred = genericNeg(stringPred)
+
+    assertFalse(intPred(3))
+    assertTrue(negIntPred(3))
+
+    assertTrue(stringPred("HELLO LELLO"))
+    assertFalse(negStringPred("HELLO LELLO"))
   }
 
 }

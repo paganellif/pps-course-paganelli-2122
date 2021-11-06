@@ -45,4 +45,6 @@ object Lab02 {
 
   val notEmpty: String => Boolean = neg(empty)
 
+  def genericNeg[A]: (A => Boolean) => (A => Boolean) = (f: A => Boolean) => !f(_)
+
 }
