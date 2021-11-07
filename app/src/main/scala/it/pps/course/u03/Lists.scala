@@ -53,7 +53,7 @@ object Lists {
       case Nil() => Nil()
     }
 
-    import it.pps.course.u02.Optionals._
+    import it.pps.course.u02.Optionals.Option
     def max(l: List[Int]): Option[Int] = {
       def _max(l: List[Int], m: Int): Int = l match {
         case Cons(h, t) if h >= m => _max(t, h)

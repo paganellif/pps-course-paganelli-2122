@@ -1,0 +1,31 @@
+package it.pps.course.u04
+
+object ForComprehension extends App {
+
+  // Basic uses of iterative for
+  for (i <- 1 to 4) print(i + " ")  // guess what 'to' is..
+  println() // 1,2,3,4
+  for (i <- 1 until 4) print(i + " ")
+  println() // 1,2,3
+  (4 to 1 by -1).foreach(i=>print(i+" ")) // 4,3,2,1
+  println()
+
+  // Custom iterations, with a class and its factory in a companion obj
+  class ZeroTo(val n: Int){
+    def foreach(action: Int=>Unit): Unit = for (i <- 0 until n) action(i)
+  }
+  object ZeroTo{
+    def apply(n: Int) = new ZeroTo(n)
+  }
+  for (i <- ZeroTo(10)) print(i+" ")
+  println()
+
+  // Showcasing some power to be later unveiled
+  for (
+    i <- 0 until 10
+    if i % 3 == 0; // ; required here
+    j <- 0 until 2) {
+    print(i + "-" + j + " ")
+    // 0-0 0-1 3-0 3-1 6-0 6-1 9-0 9-1
+  }
+}

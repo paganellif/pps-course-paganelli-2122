@@ -1,4 +1,4 @@
-package it.pps.course.u10b.devices;
+package it.pps.course.u01b.devices;
 
 import it.pps.course.u01b.devices.*;
 import org.junit.jupiter.api.BeforeAll;

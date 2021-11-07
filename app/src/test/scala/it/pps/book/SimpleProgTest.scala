@@ -31,7 +31,7 @@ class SimpleProgTest {
 
     val ascOrder = isSorted[Int]((a,b) => a < b)(_)
     val descOrder = isSorted[Int]((a,b) => a > b)(_)
-    
+
     assertTrue(ascOrder(zeroToTen))
     assertFalse(descOrder(zeroToTen))
     assertTrue(descOrder(zeroToTen.reverse))

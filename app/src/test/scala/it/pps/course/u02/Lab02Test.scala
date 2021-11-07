@@ -27,8 +27,8 @@ class Lab02Test {
   }
   @Test def testMax(): Unit = {
     val lst = Cons(50, Cons(20, Cons(30, Nil())))
-    assertEquals(Some(50), max(lst))
-    assertEquals(None, max(Nil()))
+    assertEquals(Optionals.Option.Some(50), max(lst))
+    assertEquals(Optionals.Option.None(), max(Nil()))
   }
 
   @Test def testFoldLeft(): Unit ={

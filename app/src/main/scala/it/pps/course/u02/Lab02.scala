@@ -54,6 +54,9 @@ object Lab02 {
 
   def compose[A](f: A => A, g: A => A)(a: A): A = f(g(a))
 
+  /* trait: keyword che indica una interfaccia astratta che può contenere l'implementazione di qualche metodo
+   * sealed: keyword che indica che tutte le implementazioni dell'interfaccia devono essere dichiarate nello stesso file
+   */
   sealed trait Shape {
     val perimeter: Double
     val area: Double
