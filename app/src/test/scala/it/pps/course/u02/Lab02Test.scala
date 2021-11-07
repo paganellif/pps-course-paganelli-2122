@@ -4,7 +4,6 @@ import it.pps.course.u02.Lab02._
 import org.junit.jupiter.api.Assertions._
 import org.junit.jupiter.api.Test
 import it.pps.course.u02.Modules._
-import it.pps.course.u02.Optionals._
 import it.pps.course.u03.Lists.List._
 import it.pps.course.u03.Streams._
 
@@ -28,8 +27,8 @@ class Lab02Test {
   }
   @Test def testMax(): Unit = {
     val lst = Cons(50, Cons(20, Cons(30, Nil())))
-    assertEquals(Option.Some(50), max(lst))
-    assertEquals(Option.None(), max(Nil()))
+    assertEquals(Some(50), max(lst))
+    assertEquals(None, max(Nil()))
   }
 
   @Test def testFoldLeft(): Unit ={
