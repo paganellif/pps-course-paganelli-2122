@@ -17,6 +17,13 @@ object SimpleProg {
 
   def objToString[A](a: A): String = a.toString
 
+  @annotation.tailrec
+  def isSorted[A](ordered: (A,A) => Boolean)(as: Array[A]): Boolean = as.length match {
+    case 2 => ordered(as(0), as(1))
+    case 1 | 0 => false
+    case _ => if (ordered(as(0), as(1))) isSorted(ordered)(as.drop(1)) else false
+  }
+
   def main(args: Array[String]): Unit = {
     println(formatAbs(-42))
   }
