@@ -6,7 +6,7 @@ import it.pps.course.u04lab.Lists.List._
 trait Student {
   def name: String
   def year: Int
-  def enrolling(course: Course): Unit // the student participates to a Course
+  def enrolling(course: Course*): Unit // the student participates to a Course
   def courses: List[String] // names of course the student participates to
   def hasTeacher(teacher: String): Boolean // is the student participating to a course of this teacher?
 }
@@ -22,13 +22,12 @@ object Student {
   private case class StudentImpl(override val name: String, override val year: Int) extends Student {
     private var enrolledCourses: List[Course] = Nil()
 
-    override def enrolling(course: Course): Unit = {
-      this.enrolledCourses = Cons(course, this.enrolledCourses)
-    }
+    override def enrolling(course: Course*): Unit =
+      course.foreach(c => this.enrolledCourses = Cons(c, this.enrolledCourses))
 
     override def courses: List[String] = map(this.enrolledCourses)((a) => a.name)
 
-    override def hasTeacher(teacher: String): Boolean = length(filter(enrolledCourses)(a => a.teacher equals teacher)) > 0
+    override def hasTeacher(teacher: String): Boolean = contains(map(this.enrolledCourses)(a => a.teacher), teacher)
   }
 }
 

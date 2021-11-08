@@ -69,6 +69,11 @@ object Lists extends App {
 
     def appendByFold[A](l1: List[A], l2: List[A]): List[A] = ???
 
+    def contains[A](l: List[A], elem: A): Boolean = l match {
+      case Nil() => false
+      case Cons(h,t) => if (h == elem) true else contains(t, elem)
+    }
+
     def length(l: List[_]): Int = {
       def countElem(l: List[_], acc: Int): Int = l match {
         case Nil() => acc
