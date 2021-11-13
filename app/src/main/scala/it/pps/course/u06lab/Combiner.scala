@@ -1,5 +1,7 @@
 package it.pps.course.u06lab
 
+import scala.collection._
+
 /**
   * 1) Implement trait Functions with an object FunctionsImpl such that the code
   * in TryFunctions works correctly.
@@ -13,11 +15,35 @@ trait Functions {
 
 object FunctionsImpl extends Functions {
 
-  override def sum(a: List[Double]): Double = ???
+  implicit val doubleSumCombiner: Combiner[Double] = new Combiner[Double] {
+    override def unit: Double = 0.0
 
-  override def concat(a: Seq[String]): String = ???
+    override def combine(a: Double, b: Double): Double = a + b
+  }
 
-  override def max(a: List[Int]): Int = ???
+  implicit val stringConcatCombiner: Combiner[String] = new Combiner[String] {
+    override def unit: String = ""
+
+    override def combine(a: String, b: String): String = a concat b
+  }
+
+  implicit val intMaxCombiner: Combiner[Int] = new Combiner[Int] {
+    override def unit: Int = Int.MinValue
+
+    override def combine(a: Int, b: Int): Int = Math.max(a,b)
+  }
+
+  override def sum(a: List[Double]): Double = this.combine[Double](a)
+  //a.foldRight(0.0)((elem, acc) => acc + elem)
+
+  override def concat(a: Seq[String]): String = this.combine[String](a)
+  //a.foldRight("")((elem, acc) => acc concat elem)
+
+  override def max(a: List[Int]): Int = this.combine[Int](a)
+  //a.foldRight(Int.MinValue)((elem, acc) => if (elem > acc) elem else acc)
+
+  private def combine[A](a: Iterable[A])(implicit combiner: Combiner[A]): A =
+    a.foldRight(combiner.unit)((elem, acc) => combiner.combine(elem,acc))
 }
 
 
@@ -47,4 +73,6 @@ object TryFunctions extends App {
   println(f.concat(Seq()))              // ""
   println(f.max(List(-10,3,-5,0)))      // 3
   println(f.max(List()))                // -2147483648
+
+
 }
