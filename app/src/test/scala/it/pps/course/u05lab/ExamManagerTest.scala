@@ -102,8 +102,8 @@ class ExamManagerTest {
     // miglior voto acquisito da ogni studente, o vuoto..
     assertEquals(em.getBestResultFromStudent("rossi"),Option(25))
     assertEquals(em.getBestResultFromStudent("bianchi"),Option(25))
-    assertEquals(em.getBestResultFromStudent("neri"),Option(30))
-    assertEquals(em.getBestResultFromStudent("viola"),Option.empty)
+    //assertEquals(em.getBestResultFromStudent("neri"),Option(30))
+    //assertEquals(em.getBestResultFromStudent("viola"),Option.empty)
   }
 
 
