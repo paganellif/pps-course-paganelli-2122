@@ -1,5 +1,8 @@
 package it.pps.course.u06lab
 
+import scala.collection.mutable
+import scala.collection.mutable.ListBuffer
+
 /** Consider the Parser example shown in previous lesson.
   * Analogously to NonEmpty, create a mixin NotTwoConsecutive,
   * which adds the idea that one cannot parse two consecutive
@@ -12,7 +15,7 @@ package it.pps.course.u06lab
 abstract class Parser[T] {
   def parse(t: T): Boolean  // is the token accepted?
   def end(): Boolean        // is it ok to end here
-  def parseAll(seq: Seq[T]): Boolean = (seq forall {parse(_)}) & end() // note &, not &&
+  def parseAll(seq: Seq[T]): Boolean = (seq forall parse) & end() // note &, not &&
 }
 
 class BasicParser(chars: Set[Char]) extends Parser[Char] {
@@ -22,18 +25,32 @@ class BasicParser(chars: Set[Char]) extends Parser[Char] {
 
 trait NonEmpty[T] extends Parser[T]{
   private[this] var empty = true
-  abstract override def parse(t: T) = {empty = false; super.parse(t)} // who is super??
-  abstract override def end() = !empty && {empty = true; super.end()}
+  abstract override def parse(t: T): Boolean = {empty = false; super.parse(t)} // who is super??
+  abstract override def end(): Boolean = !empty && {empty = true; super.end()}
 }
 
 class NonEmptyParser(chars: Set[Char]) extends BasicParser(chars) with NonEmpty[Char]
 
 trait NotTwoConsecutive[T] extends Parser[T]{
-  // ???
+  private var previous: ListBuffer[T] = mutable.ListBuffer[T]()
+  abstract override def parse(t: T): Boolean = super.parse(t) && this.checkPrevious(t)
+  abstract override def end(): Boolean = super.end()
+  private def checkPrevious(t: T): Boolean = {
+    if(previous.isEmpty){
+      previous.addOne(t)
+      true
+    } else {
+      if (previous.last == t)
+        false
+      else {
+        previous.addOne(t)
+        true
+      }
+    }
+  }
 }
 
-class NotTwoConsecutiveParser(chars: Set[Char]) extends BasicParser(chars) // ??? with ...
-
+class NotTwoConsecutiveParser(chars: Set[Char]) extends BasicParser(chars) with NotTwoConsecutive[Char]
 
 object TryParsers extends App {
   def parser = new BasicParser(Set('a','b','c'))
@@ -59,7 +76,11 @@ object TryParsers extends App {
   println(parserNTCNE.parseAll("XYYZ".toList)) // false
   println(parserNTCNE.parseAll("".toList)) // false
 
-  def sparser : Parser[Char] = ??? // "abc".charParser()
+  implicit class CharParser(t: String) {
+    def charParser(): Parser[Char] = new BasicParser(t.toSet)
+  }
+
+  def sparser : Parser[Char] = "abc".charParser()
   println(sparser.parseAll("aabc".toList)) // true
   println(sparser.parseAll("aabcdc".toList)) // false
   println(sparser.parseAll("".toList)) // true
