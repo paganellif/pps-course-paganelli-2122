@@ -1,8 +1,8 @@
 package it.pps.course.u01b.devices;
 
-import it.pps.course.u01b.devices.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Created by mirko on 11/7/16.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class DeviceManagerImplTest {
 
     public static final int SIZE = 3;

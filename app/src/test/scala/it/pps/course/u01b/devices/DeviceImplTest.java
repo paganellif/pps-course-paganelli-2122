@@ -2,12 +2,14 @@ package it.pps.course.u01b.devices;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Created by mirko on 11/6/16.
  */
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class DeviceImplTest {
 
     private static final int N_OF_ATTEMPTS = 10;
