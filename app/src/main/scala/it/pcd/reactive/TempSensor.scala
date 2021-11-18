@@ -59,7 +59,7 @@ case class TempStream(min: Double, max: Double, spikeFreq: Double, freq: Int){
         }
       }
     }).start()
-
+    
   }, BackpressureStrategy.LATEST)
 
   def toFlowable: Flowable[Double] = this.tempStream
