@@ -1,6 +1,6 @@
 package it.pps.course.testing
 
-import it.pps.course.u06lab.TryParsers.CharParser
+import it.pps.course.u06lab.TryParsers.{CharNotEmptyParser, CharParser}
 import it.pps.course.u06lab.{BasicParser, NonEmpty, NonEmptyParser, NotTwoConsecutive, NotTwoConsecutiveParser, Parser}
 import org.junit.runner.RunWith
 import org.scalatest.funspec.AnyFunSpec
@@ -82,6 +82,21 @@ class ScalaTestExample extends AnyFunSpec with should.Matchers {
 
     it("should not parse aabcdc") {
       assert(!sparser.parseAll("aabcdc".toList))
+    }
+  }
+
+  describe("An implicit StringNotEmptyParser on [a,b,c]"){
+    def sneparser: Parser[Char] = "abc".charNotEmptyParser()
+    it("should parse aabc") {
+      assert(sneparser.parseAll("aabc".toList))
+    }
+
+    it ("should not parse an empty string") {
+      assert(!sneparser.parseAll("".toList))
+    }
+
+    it("should not parse aabcdc") {
+      assert(!sneparser.parseAll("aabcdc".toList))
     }
   }
 

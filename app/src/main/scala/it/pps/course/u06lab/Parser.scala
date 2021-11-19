@@ -80,6 +80,10 @@ object TryParsers extends App {
     def charParser(): Parser[Char] = new BasicParser(t.toSet)
   }
 
+  implicit class CharNotEmptyParser(t: String){
+    def charNotEmptyParser(): Parser[Char] = new BasicParser(t.toSet) with NonEmpty[Char]
+  }
+
   def sparser : Parser[Char] = "abc".charParser()
   println(sparser.parseAll("aabc".toList)) // true
   println(sparser.parseAll("aabcdc".toList)) // false
