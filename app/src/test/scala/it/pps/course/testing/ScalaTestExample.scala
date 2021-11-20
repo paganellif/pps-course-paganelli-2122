@@ -40,7 +40,7 @@ class ScalaTestExample extends AnyFunSpec with should.Matchers {
     }
   }
 
-  describe( "A NotTwoConsecutiveParser on [X,Y,Z]"){
+  describe("A NotTwoConsecutiveParser on [X,Y,Z]"){
     def parserNTC = new NotTwoConsecutiveParser(Set('X', 'Y', 'Z'))
     it("should parse XYZ") {
       assert(parserNTC.parseAll("XYZ".toList))
