@@ -30,12 +30,14 @@ stages:
 # BUILD
 app-build:
   extends: .base-build
+  stage: build
   script:
     - gradle assemble
 
 # TEST
 app-test:
   extends: .base-build
+  stage: test
   script:
     - gradle check
   artifacts:
@@ -46,6 +48,7 @@ app-test:
 # PACKAGE
 app-package:
   extends: .base-build
+  stage: package
   script:
     - gradle jar
   artifacts:
