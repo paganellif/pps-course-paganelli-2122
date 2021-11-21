@@ -42,7 +42,7 @@ app-test:
     - gradle check
   artifacts:
     paths:
-      - app/build/reports/jacoco/jacocoTestReport.xml
+      - app/build/reports/jacoco/test/jacocoTestReport.xml
     expire_in: 1 day
 
 # PACKAGE
