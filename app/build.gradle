@@ -64,7 +64,19 @@ test {
 }
 
 jacocoTestReport {
+    reports {
+        xml.required = true
+    }
     dependsOn test // tests are required to run before generating the report
+}
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'it.pps.course.App'
+        )
+    }
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
 }
 
 application {

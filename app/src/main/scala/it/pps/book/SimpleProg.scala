@@ -10,7 +10,7 @@ package it.pps.book
 object SimpleProg {
   def abs(n: Int): Int = if (n < 0) -n else n
 
-  def formatAbs(x: Int) = {
+  def formatAbs(x: Int): String = {
     val msg = "The absolut value of %d is %d"
     msg.format(x, abs(x))
   }

@@ -38,14 +38,6 @@ public class DeviceManagerImplTest {
     }
 
     @Test
-    public void switchAllOn() {
-        this.manager.devices().get(0).off();
-        this.manager.devices().get(SIZE-1).off();
-        this.manager.switchAllOn();
-        assertTrue(this.manager.allOn());
-    }
-
-    @Test
     public void switchAllOff(){
         this.manager.devices().get(SIZE-1).off();
         this.manager.switchAllOff();

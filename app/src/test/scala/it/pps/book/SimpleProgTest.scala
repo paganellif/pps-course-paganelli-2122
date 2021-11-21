@@ -6,23 +6,23 @@ import org.junit.jupiter.api.Assertions._
 
 class SimpleProgTest {
 
-  @Test def absNegativeTest() = {
+  @Test def absNegativeTest(): Unit = {
     assertEquals(SimpleProg.abs(-42), 42)
   }
 
-  @Test def absPositiveTest() = {
+  @Test def absPositiveTest(): Unit = {
     assertEquals(SimpleProg.abs(42), 42)
   }
 
-  @Test def formattedAbsTest() = {
+  @Test def formattedAbsTest(): Unit = {
     assertEquals(SimpleProg.formatAbs(-42), "The absolut value of -42 is 42")
   }
 
-  @Test def intToStringTest() = {
+  @Test def intToStringTest(): Unit = {
     assertEquals(SimpleProg.objToString(2), "2")
   }
 
-  @Test def stringToStringTest() = {
+  @Test def stringToStringTest(): Unit = {
     assertEquals(SimpleProg.objToString("ciao"), "ciao")
   }
 
