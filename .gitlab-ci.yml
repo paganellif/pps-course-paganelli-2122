@@ -22,11 +22,6 @@ stages:
     paths:
       - .gradle/
 
-.base-docker-login:
-  before_script:
-    - export DEC_PWD=$(echo $CI_REGISTRY_PWD | base64 -d)
-    - echo $DEC_PWD | docker login -u $CI_REGISTRY_USR --password-stdin $CI_REGISTRY
-
 # BUILD
 app-build:
   extends: .base-build
@@ -55,53 +50,3 @@ app-package:
     paths:
       - app/build/libs/app.jar
     expire_in: 1 day
-
-# PUSH
-app-push:
-  stage: push
-  image: docker:stable
-  extends: .base-docker-login
-  dependencies: [ app-package ]
-  variables:
-    IMAGE_NAME: $CI_REGISTRY_USR/pps-course-paganelli-2122
-    IMAGE_TAG: $CI_REGISTRY/$IMAGE_NAME:${CI_COMMIT_SHORT_SHA}
-    IMAGE_TAG_LATEST: $CI_REGISTRY/$IMAGE_NAME:latest
-  script:
-    - docker build -t $IMAGE_TAG .
-    - docker build -t $IMAGE_TAG_LATEST .
-    - docker push --all-tags
-  rules:
-    - if: $CI_COMMIT_BRANCH =~ /^(test|main)$/
-
-# CVE SCAN
-app-cve-scan:
-  stage: cve:scan
-  dependencies: [ ]
-  extends: .base-docker-login
-  image:
-    name: docker.io/aquasec/trivy:0.21.0
-    entrypoint: [ "" ]
-  allow_failure: true
-  variables:
-    GIT_STRATEGY: none
-    TRIVY_DEBUG: "true"
-    TRIVY_FORMAT: "json"
-    TRIVY_OUTPUT: "gl-container-scanning-report.json"
-    TRIVY_SEVERITY: "HIGH,CRITICAL"
-    TRIVY_EXIT_CODE: "1"
-    TRIVY_VULN_TYPE: "os,library"
-    TRIVY_TIMEOUT: "5m"
-    TRIVY_NO_PROGRESS: "true"
-    TRIVY_USERNAME: "$CI_REGISTRY_USR"
-    TRIVY_PASSWORD: "$CI_REGISTRY_PWD"
-    TRIVY_AUTH_URL: "$CI_REGISTRY"
-    IMAGE_NAME: $CI_REGISTRY_USR/pps-course-paganelli-2122
-    IMAGE_TAG: $CI_REGISTRY/$IMAGE_NAME:${CI_COMMIT_SHORT_SHA}
-  script:
-    - trivy "${IMAGE_TAG}"
-  artifacts:
-    paths:
-      - gl-container-scanning-report.json
-    expire_in: 1 day
-  rules:
-    - if: $CI_COMMIT_BRANCH =~ /^(test|main)$/
