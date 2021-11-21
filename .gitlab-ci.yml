@@ -63,7 +63,7 @@ app-push:
   extends: .base-docker-login
   dependencies: [ app-package ]
   variables:
-    IMAGE_NAME: pps-course-paganelli-2122
+    IMAGE_NAME: $CI_REGISTRY_USR/pps-course-paganelli-2122
     IMAGE_TAG: $CI_REGISTRY/$IMAGE_NAME:${CI_COMMIT_SHORT_SHA}
     IMAGE_TAG_LATEST: $CI_REGISTRY/$IMAGE_NAME:latest
   script:
@@ -95,7 +95,7 @@ app-cve-scan:
     TRIVY_USERNAME: "$CI_REGISTRY_USR"
     TRIVY_PASSWORD: "$CI_REGISTRY_PWD"
     TRIVY_AUTH_URL: "$CI_REGISTRY"
-    IMAGE_NAME: pps-course-paganelli-2122
+    IMAGE_NAME: $CI_REGISTRY_USR/pps-course-paganelli-2122
     IMAGE_TAG: $CI_REGISTRY/$IMAGE_NAME:${CI_COMMIT_SHORT_SHA}
   script:
     - trivy "${IMAGE_TAG}"
