@@ -1,7 +1,7 @@
 package it.pps.course.testing
 
 trait Logger {
-  def log(msg: String)
+  def log(msg: String): Unit
 }
 
 class BasicLogger(init: String = "") extends Logger {
