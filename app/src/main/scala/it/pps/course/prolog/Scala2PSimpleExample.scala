@@ -1,6 +1,6 @@
 package it.pps.course.prolog
 
-import alice.tuprolog.{Prolog, SolveInfo, Theory}
+import alice.tuprolog.{Prolog, Theory}
 
 object Scala2PSimpleExample extends App {
   val engine: Prolog = new Prolog
@@ -52,6 +52,26 @@ object Scala2PSimpleExample extends App {
   println(engine.solve("grandfather(terach,X).").getSolution)
   //grandfather(terach,isaac)
 
+  // Arithmetics
+  println(engine.solve("X is 1+3.").getSolution)
+  // is(4,'+'(1,3))
+  println(engine.solve("X is 1-3.").getSolution)
+  // is(-2,'-'(1,3))
+  println(engine.solve("X is 12/4.").getSolution)
+  // is(3,'/'(12,4))
+  println(engine.solve("X is 3*3.").getSolution)
+  // is(9,'*'(3,3))
+  println(engine.solve("3=3.").getSolution)
+  // '='(3,3)
+  println(engine.solve("4>3.").getSolution)
+  // '>'(4,3)
+  println(engine.solve("2<3.").getSolution)
+  // '<'(2,3)
+  println(engine.solve("3>=3.").getSolution)
+  // '>='(3,3)
+  println(engine.solve("3=<3.").getSolution)
+  // '=<'(3,3)
+
   // Lists
   engine.addTheory(new Theory(
     """
@@ -72,17 +92,25 @@ object Scala2PSimpleExample extends App {
       erase_all([],[]).
       erase_all([_|T],[zero|T2]):-erase_all(T,T2).
 
-
+      %change (L,I,O,LO).
       % caso in cui la testa è l'elemento da cambiare
-      %change([X|T],X,Y,L):- change(T,X,Y,[Y|L]).
+      change([X|T],X,Y,[Y|L]):- change(T,X,Y,L).
       % caso in cui la testa non è l'elemento da cambiare
-      %change([H|T],X,Y,L):- change(T,X,Y,[H|L]).
-      %change([],_,_,[]).
+      change([H|T],X,Y,[H|L]):- change(T,X,Y,L).
+      change([],_,_,[]).
+
+      % size(List,Size)
+      % Size will contain the number of elements in List
+      size([],0).
+      size([_|T],M) :- size(T,N), M is N+1.
     """))
   println(engine.solve("search([a,b,a,d],a).").getSolution)
   println(engine.solve("append([a,b],[c,d],X).").getSolution)
   // append([a,b],[b,d],[a,b,c,d])
   println(engine.solve("lookup([a,b,c,b],X,b).").getSolution)
   // lookup([a,b,c,b],s(zero),b)
-  //println(engine.solve("change([a,b,c,d,a,b],a,a1,X).").getSolution)
+  println(engine.solve("change([b,a,c,d,a,b],a,a1,X).").getSolution)
+  // change([b,a,c,d,a,b],a,a1,[b,a1,c,d,a1,b])
+  println(engine.solve("size([q,w,e,r,t,y],X).").getSolution)
+  // size([q,w,e,r,t,y],6)
 }
