@@ -163,7 +163,7 @@ object Lab01 {
       """
       % seqR(N,List)
       seqR(0,[0]).
-      seqR(N,[N|T]):- N > 0, M is N-1, seqR(M,[M|T]).
+      seqR(N,[N|T]):- N > 0, M is N-1, seqR(M,T).
     """))
 
     engine
