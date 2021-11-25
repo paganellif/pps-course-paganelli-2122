@@ -144,10 +144,26 @@ object Lab01 {
       """
       % sublist(List1,List2)
       % List1 should contain elements all also in List2
-      % example: sublist([1,2],[5,3,2,1]).
 
       sublist([],_).
       sublist([H1|T1],L2):- search(H1,L2), sublist(T1, L2).
+    """))
+
+    // Ex4.1
+    engine.addTheory(new Theory(
+      """
+      % seq(N,List)
+
+      seq(0,[]).
+      seq(N,[0|T]):- N > 0, N2 is N-1, seq(N2,T).
+    """))
+
+    // Ex4.2
+    engine.addTheory(new Theory(
+      """
+      % seqR(N,List)
+      seqR(0,[0]).
+      seqR(N,[N|T]):- N > 0, M is N-1, seqR(M,[M|T]).
     """))
 
     engine

@@ -117,6 +117,7 @@ class PrologTest extends AnyFunSuite with Matchers {
   }
 
   test("Ex3.3"){
+    assert(engine.solve("sublist([1,2],[5,3,2,1]).").isSuccess)
     assert(engine.solve("sublist([1,2],[1,2]).").isSuccess)
     assert(engine.solve("sublist([1],[-3,1,4,0]).").isSuccess)
     assert(engine.solve("sublist([1,3,4,2],[-3,1,4,0,3,5,6,2]).").isSuccess)
@@ -124,6 +125,26 @@ class PrologTest extends AnyFunSuite with Matchers {
     assertThrows[NoSolutionException]{
       engine.solve("sublist([0],[1,2,3]).").getSolution
       engine.solve("sublist([2,4,6,8,10],[1,2]).").getSolution
+    }
+  }
+
+  test("Ex4.1"){
+    assert(engine.solve("seq(0,[]).").isSuccess)
+    assert(engine.solve("seq(3,[0,0,0]).").isSuccess)
+    assert(engine.solve("seq(5,X).").getSolution.toString == "seq(5,[0,0,0,0,0])")
+    assertThrows[NoSolutionException]{
+      engine.solve("seq(2,[1,2,3]).").getSolution
+      engine.solve("seq(2,[1,2]).").getSolution
+    }
+  }
+
+  test("Ex4.2"){
+    assert(engine.solve("seqR(0,[0]).").isSuccess)
+    assert(engine.solve("seqR(3,[3,2,1,0]).").isSuccess)
+    assert(engine.solve("seqR(5,X).").getSolution.toString == "seqR(5,[5,4,3,2,1,0])")
+    assertThrows[NoSolutionException]{
+      engine.solve("seqR(2,[2,1]).").getSolution
+      engine.solve("seqR(3,[0]).").getSolution
     }
   }
 }
