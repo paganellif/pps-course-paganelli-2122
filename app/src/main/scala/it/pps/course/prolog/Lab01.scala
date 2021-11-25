@@ -61,27 +61,95 @@ object Lab01 {
       size2([H|L],s(N)):- size2(L,N).
     """))
 
+    // Ex2.3
+    engine.addTheory(new Theory(
+      """
+      % sum(List,Sum)
+      sum([],0).
+      sum([H|L],N):- sum(L,M), N is M+H.
+    """))
+
+    // Ex2.4
+    engine.addTheory(new Theory(
+      """
+      % average(List,Average)
+      % it uses average(List,Count,Sum,Average)
+      average([],0).
+      average(List,A) :- average(List,0,0,A).
+      average([],C,S,A) :- A is S/C.
+      average([X|Xs],C,S,A) :- C2 is C+1, S2 is S+X, average(Xs,C2,S2,A).
+    """))
+
+    // Ex2.5
+    engine.addTheory(new Theory(
+      """
+      % max(List,Max)
+      % Max is the biggest element in List
+      % Suppose the list has at least one element
+      max([H],H).
+      max([H|T],Max):- max(T,Max,H).
+
+      max([H|T],Max,TempMax):- H >= TempMax, max(T,Max,H).
+      max([H|T],Max,TempMax):- H < TempMax, max(T,Max,TempMax).
+
+      max([],Max,TempMax):- Max is TempMax.
+    """))
+
+    // Ex2.6
+    engine.addTheory(new Theory(
+      """
+      % minmax(List,Max,Min)
+      % Max is the biggest element in List
+      % Min is the smallest element in List
+      % Suppose the list has at least one element
+      minmax([H],H,H).
+      minmax([H|T],Max,Min):- minmax(T,Max,Min,H,H).
+
+      % ci sono 4 possibili scenari che possono verificarsi:
+      % caso in cui la testa è maggiore di TempMax e maggiore di TempMin -> aggiorno solo TempMax
+      minmax([H|T],Max,Min,TempMax,TempMin):- H >= TempMax, H > TempMin, minmax(T,Max,Min,H,TempMin).
+
+      % caso in cui la testa è minore di TempMax e minore di TempMin -> aggiorno solo TempMin
+      minmax([H|T],Max,Min,TempMax,TempMin):- H < TempMax, H =< TempMin, minmax(T,Max,Min,TempMax,H).
+
+      % caso in cui la testa è maggiore di TempMax e minore di TempMin -> aggiorno tutte due
+      minmax([H|T],Max,Min,TempMax,TempMin):- H >= TempMax, H =< TempMin, minmax(T,Max,Min,H,H).
+
+      % caso in cui la testa è minore di TempMax e maggiore di TempMin -> non aggiorno nessuno
+      minmax([H|T],Max,Min,TempMax,TempMin):- H < TempMax, H > TempMin, minmax(T,Max,Min,TempMax,TempMin).
+
+      minmax([],Max,Min,TempMax,TempMin):- Max is TempMax, Min is TempMin.
+    """))
+
+    // Ex3.1
+    engine.addTheory(new Theory(
+      """
+      % same(List1,List2)
+      % are the two lists exactly the same?
+      same([],[]).
+      same([X|Xs],[X|Ys]):- same(Xs,Ys).
+    """))
+
+    // Ex3.2
+    engine.addTheory(new Theory(
+      """
+      % all_bigger(List1,List2)
+      % all elements in List1 are bigger than those in List2, 1 by 1
+      all_bigger([],[]).
+      all_bigger([H1|T1],[H2|T2]):- H1 > H2, all_bigger(T1,T2).
+    """))
+
+    // Ex3.3
+    engine.addTheory(new Theory(
+      """
+      % sublist(List1,List2)
+      % List1 should contain elements all also in List2
+      % example: sublist([1,2],[5,3,2,1]).
+
+      sublist([],_).
+      sublist([H1|T1],L2):- search(H1,L2), sublist(T1, L2).
+    """))
+
     engine
   }
-
-  /*
-  // query
-  println(engine.solve("search(a,[a,b,c]).").getSolution) // search(a,[a,b,c])
-  //println(engine.solve("search(a,[c,d,e]).").getSolution) // NoSolutionException
-
-  // iteration
-  println(engine.solve("search(X,[a,b,c]).").getSolution) // search(a,[a,b,c])
-
-  // generation
-  println(engine.solve("search(a,X).").getSolution) // search(a,[a|_2124])
-  println(engine.solve("search(a,[X,b,Y,Z]).").getSolution) // search(a,[a,b,Y,Z])
-  println(engine.solve("search(X,Y).").getSolution) // search(X,[X|_2150])
-
-
-  println(engine.solve("search2(a,[b,c,a,a,d,e,a,a,g,h]).").getSolution) // search2(a,[b,c,a,a,d,e,a,a,g,h])
-  println(engine.solve("search2(a,[b,c,a,a,a,d,e]).").getSolution) // search2(a,[b,c,a,a,a,d,e])
-  println(engine.solve("search2(X,[b,c,a,a,d,d,e]).").getSolution) // search2(a,[b,c,a,a,d,d,e])
-  println(engine.solve("search2(a,L).").getSolution) // search2(a,[a|[a|_2204]])
-  println(engine.solve("search2(a,[_,_,a,_,a,_]).").getSolution) // search2(a,[a,a,a,_2217,a,_2218])
-   */
 }

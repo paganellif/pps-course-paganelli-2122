@@ -1,7 +1,6 @@
 package it.pps.course.prolog
 
-import alice.tuprolog.{NoSolutionException, Prolog, Term, Theory}
-import it.pps.course.prolog.Lab01
+import alice.tuprolog.{NoSolutionException, Prolog}
 import org.junit.runner.RunWith
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
@@ -60,5 +59,71 @@ class PrologTest extends AnyFunSuite with Matchers {
     }
   }
 
+  test("Ex2.3"){
+    assert(engine.solve("sum([1,2,3],6).").isSuccess)
+    assert(engine.solve("sum([],0).").isSuccess)
+    assert(engine.solve("sum([2,4,6,8,10],X).").getSolution.toString == "sum([2,4,6,8,10],30)")
+    assertThrows[NoSolutionException]{
+      engine.solve("sum([2,4,6,8,10],0).").getSolution
+    }
+  }
 
+  test("Ex2.4"){
+    assert(engine.solve("average([1,2,3],2).").isSuccess)
+    assert(engine.solve("average([],0).").isSuccess)
+    assert(engine.solve("average([2,4,6,8,10],X).").getSolution.toString == "average([2,4,6,8,10],6)")
+    assertThrows[NoSolutionException]{
+      engine.solve("average([2,4,6,8,10],0).").getSolution
+    }
+  }
+
+  test("Ex2.5"){
+    assert(engine.solve("max([1,2,3],3).").isSuccess)
+    assert(engine.solve("max([2,400,6,84],X).").getSolution.toString == "max([2,400,6,84],400)")
+    assertThrows[NoSolutionException]{
+      engine.solve("max([],0).").getSolution
+      engine.solve("max([2,4,6,8,10],0).").getSolution
+    }
+  }
+
+  test("Ex2.6"){
+    assert(engine.solve("minmax([1,2,3],3,1).").isSuccess)
+    assert(engine.solve("minmax([1],1,1).").isSuccess)
+    assert(engine.solve("minmax([2,400,6,84],X,Y).").getSolution.toString == "minmax([2,400,6,84],400,2)")
+    assertThrows[NoSolutionException]{
+      engine.solve("minmax([],0,0).").getSolution
+      engine.solve("minmax([2,4,6,8,10],2,6).").getSolution
+    }
+  }
+
+  test("Ex3.1"){
+    assert(engine.solve("same([1,2,3],[1,2,3]).").isSuccess)
+    assert(engine.solve("same([1],[1]).").isSuccess)
+    assert(engine.solve("same([],[]).").isSuccess)
+    assert(engine.solve("same([2,400,6,84],X).").getSolution.toString == "same([2,400,6,84],[2,400,6,84])")
+    assertThrows[NoSolutionException]{
+      engine.solve("same([],[1,2,3]).").getSolution
+      engine.solve("same([2,4,6,8,10],[1,2]).").getSolution
+    }
+  }
+
+  test("Ex3.2"){
+    assert(engine.solve("all_bigger([1,2,3],[0,1,2]).").isSuccess)
+    assert(engine.solve("all_bigger([1],[-3]).").isSuccess)
+    assertThrows[NoSolutionException]{
+      engine.solve("all_bigger([],[1,2,3]).").getSolution
+      engine.solve("all_bigger([2,4,6,8,10],[1,2]).").getSolution
+    }
+  }
+
+  test("Ex3.3"){
+    assert(engine.solve("sublist([1,2],[1,2]).").isSuccess)
+    assert(engine.solve("sublist([1],[-3,1,4,0]).").isSuccess)
+    assert(engine.solve("sublist([1,3,4,2],[-3,1,4,0,3,5,6,2]).").isSuccess)
+    assert(engine.solve("sublist([],[1,2,3]).").isSuccess)
+    assertThrows[NoSolutionException]{
+      engine.solve("sublist([0],[1,2,3]).").getSolution
+      engine.solve("sublist([2,4,6,8,10],[1,2]).").getSolution
+    }
+  }
 }
