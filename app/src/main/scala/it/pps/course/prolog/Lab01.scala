@@ -38,7 +38,27 @@ object Lab01 {
       % search_anytwo(Elem,List)
       % looks for any Elem that occurs two times, anywhere
       search_anytwo(X, [X,_,X]).
-      search_anytwo(X, [X|Xs]):- search(X,Xs), search_anytwo(X,Xs).
+      search_anytwo(X, [X|Xs]):- search(X,Xs).
+      search_anytwo(X, [Y|Xs]):- search_anytwo(X,Xs).
+    """))
+
+    // Ex2.1
+    engine.addTheory(new Theory(
+      """
+      % size(List, Size)
+      % Size will contain the number of elements in List
+      size([],0).
+      size([_|T],M) :- size(T,N), M is N+1.
+    """))
+
+    // Ex2.2
+    engine.addTheory(new Theory(
+      """
+      % size2(List,Size)
+      % Size will contain the number of elements in List,
+      % written using notation zero, s(zero), s(s(zero))..
+      size2([],zero).
+      size2([H|L],s(N)):- size2(L,N).
     """))
 
     engine
