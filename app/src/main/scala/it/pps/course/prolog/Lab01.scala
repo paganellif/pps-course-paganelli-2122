@@ -181,6 +181,19 @@ object Lab01 {
       seqR2(N,L):- I is N-1, last(M,N,L), seqR2(I,M).
     """))
 
+    // Ex4.4
+    engine.addTheory(new Theory(
+      """
+      % inv(List,List)
+
+      % double(List,List)
+      % suggestion: remember predicate append/3
+
+      % times(List,N,List)
+
+      % proj(List,List)
+    """))
+
     engine
   }
 }
