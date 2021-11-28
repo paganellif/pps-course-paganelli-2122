@@ -147,4 +147,19 @@ class PrologTest extends AnyFunSuite with Matchers {
       engine.solve("seqR(3,[0]).").getSolution
     }
   }
+
+  test("Ex4.3"){
+    assert(engine.solve("last([1,2,3],5,[1,2,3,5]).").isSuccess)
+    assert(engine.solve("last([],4,[4]).").isSuccess)
+    assert(engine.solve("last([1,2],4,[1,2,4]).").isSuccess)
+    assert(engine.solve("seqR2(4,[0,1,2,3,4]).").isSuccess)
+    assert(engine.solve("seqR2(3,[0,1,2,3]).").isSuccess)
+    assert(engine.solve("seqR2(5,X).").getSolution.toString == "seqR2(5,[0,1,2,3,4,5])")
+    assertThrows[NoSolutionException]{
+      engine.solve("seqR2(2,[1,2]).").getSolution
+      engine.solve("seqR2(3,[0]).").getSolution
+    }
+  }
+
+  
 }

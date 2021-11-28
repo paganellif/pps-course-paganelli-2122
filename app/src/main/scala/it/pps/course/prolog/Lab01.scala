@@ -166,6 +166,21 @@ object Lab01 {
       seqR(N,[N|T]):- N > 0, M is N-1, seqR(M,T).
     """))
 
+    // Ex4.3
+    engine.addTheory(new Theory(
+      """
+      % last(PrevList, Item, NewList)
+      append([],L,L).
+      append([H|T],L,[H|M]):- append(T,L,M).
+
+      last([],I,[I]).
+      last([H|T],I,[H|M]):- last(T,I,M).
+
+      % seqR2(N,List)
+      seqR2(0,[0]).
+      seqR2(N,L):- I is N-1, last(M,N,L), seqR2(I,M).
+    """))
+
     engine
   }
 }
