@@ -161,7 +161,7 @@ class PrologTest extends AnyFunSuite with Matchers {
     }
   }
 
-  test("Ex4.4"){
+  /*test("Ex4.4"){
     assert(engine.solve("inv([1,2,3],[3,2,1]).").isSuccess)
     assert(engine.solve("inv([1],[1]).").isSuccess)
     assert(engine.solve("inv([1,2,3],X).").getSolution.toString == "inv([1,2,3],[3,2,1])")
@@ -180,5 +180,5 @@ class PrologTest extends AnyFunSuite with Matchers {
       engine.solve("times([1,2,3],1,[1,2,3,1,2,3]).").getSolution
       engine.solve("proj([[1],[2],[3]],[1]).").getSolution
     }
-  }
+  }*/
 }
