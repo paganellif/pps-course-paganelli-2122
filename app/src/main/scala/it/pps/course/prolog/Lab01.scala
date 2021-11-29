@@ -169,7 +169,7 @@ object Lab01 {
     // Ex4.3
     engine.addTheory(new Theory(
       """
-      % last(PrevList, Item, NewList)
+      % last(L1,I,L12)
       append([],L,L).
       append([H|T],L,[H|M]):- append(T,L,M).
 
@@ -185,11 +185,17 @@ object Lab01 {
     engine.addTheory(new Theory(
       """
       % inv(List,List)
+      inv([I],[I]).
+      inv([H1|T1],[H2|T2]):- last(Y,H1,T2), last(X,H2,T1), inv(X,Y).
 
       % double(List,List)
       % suggestion: remember predicate append/3
+      double(L1,L11):- append(L1,L1,L11).
 
       % times(List,N,List)
+      times(_,0,[]).
+      times(L,1,L).
+      times(L1,N,L1N):- N > 0, M is N-1, append(X,L1,L1N), times(L1,M,X).
 
       % proj(List,List)
     """))

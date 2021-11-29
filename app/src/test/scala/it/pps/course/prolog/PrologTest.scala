@@ -161,24 +161,43 @@ class PrologTest extends AnyFunSuite with Matchers {
     }
   }
 
-  /*test("Ex4.4"){
+  test("Ex4.4-INV"){
     assert(engine.solve("inv([1,2,3],[3,2,1]).").isSuccess)
+    assert(engine.solve("inv([1,2,3,4,5,6,7],[7,6,5,4,3,2,1]).").isSuccess)
     assert(engine.solve("inv([1],[1]).").isSuccess)
     assert(engine.solve("inv([1,2,3],X).").getSolution.toString == "inv([1,2,3],[3,2,1])")
+    assert(engine.solve("inv(X,[1,5,6]).").getSolution.toString == "inv([6,5,1],[1,5,6])")
+    assertThrows[NoSolutionException]{
+      engine.solve("inv([0],[1]).").getSolution
+    }
+  }
+
+  test("Ex4.4-DOUBLE"){
     assert(engine.solve("double([1,2,3],[1,2,3,1,2,3]).").isSuccess)
     assert(engine.solve("double([1],[1,1]).").isSuccess)
     assert(engine.solve("double([1],X).").getSolution.toString == "double([1],[1,1])")
+    assertThrows[NoSolutionException]{
+      engine.solve("double([1,2,3],[1,2,3,3,2,1]).").getSolution
+    }
+  }
+
+  test("Ex4.4-TIMES"){
     assert(engine.solve("times([1,2,3],3,[1,2,3,1,2,3,1,2,3]).").isSuccess)
     assert(engine.solve("times([1,2,3],2,[1,2,3,1,2,3]).").isSuccess)
     assert(engine.solve("times([1],1,X).").getSolution.toString == "times([1],1,[1])")
+    assertThrows[NoSolutionException]{
+      engine.solve("times([1,2,3],1,[1,2,3,1,2,3]).").getSolution
+    }
+  }
+/*
+  test("Ex4.4-PROJ"){
     assert(engine.solve("proj([[1,2],[3,4],[5,6]],[1,3,5]).").isSuccess)
     assert(engine.solve("proj([[1],[2],[3]],[1,2,3]).").isSuccess)
     assert(engine.solve("proj([[1,2],[3,4]],X).").getSolution.toString == "proj([[1,2],[3,4]],[1,3])")
     assertThrows[NoSolutionException]{
-      engine.solve("inv([0],[1]).").getSolution
-      engine.solve("double([1,2,3],[1,2,3,3,2,1]).").getSolution
-      engine.solve("times([1,2,3],1,[1,2,3,1,2,3]).").getSolution
       engine.solve("proj([[1],[2],[3]],[1]).").getSolution
     }
-  }*/
+  }
+ */
+
 }
