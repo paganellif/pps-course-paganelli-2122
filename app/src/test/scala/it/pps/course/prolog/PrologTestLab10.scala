@@ -7,8 +7,8 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class PrologTest extends AnyFunSuite with Matchers {
-  val engine: Prolog = Lab01()
+class PrologTestLab10 extends AnyFunSuite with Matchers {
+  val engine: Prolog = PrologLab("prolog/lab10.pl")
 
   test("Ex1.1"){
     assert(engine.solve("search(a,[a,b,c]).").isSuccess)

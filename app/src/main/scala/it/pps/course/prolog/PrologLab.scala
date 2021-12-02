@@ -4,8 +4,8 @@ import alice.tuprolog.{Prolog, Theory}
 
 import java.nio.file.{Files, Paths}
 
-object Lab01 {
-  def apply(): Prolog = {
+object PrologLab {
+  def apply(filePath: String): Prolog = {
     val engine: Prolog = new Prolog
 
     implicit class TheoryFromFile(resourceFile: String){
@@ -14,7 +14,7 @@ object Lab01 {
       }
     }
 
-    engine.setTheory("prolog/lab10.pl".toTheory)
+    engine.setTheory(filePath.toTheory)
 
     engine
   }
