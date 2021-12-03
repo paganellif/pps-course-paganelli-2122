@@ -30,13 +30,13 @@ class PrologTestLab11 extends AnyFunSuite with Matchers {
     assertThrows[NoSolutionException]{
       engine.solve("dropFirst(11,[10,20,10,30,10],L).").getSolution
     }
-/*
+    
     assert(engine.solve("dropLast(10,[10,20,10,30,10],[10,20,10,30]).").isSuccess)
     assert(engine.solve("dropLast(10,[10,20,10,30,10],L).").getSolution.toString == "dropLast(10,[10,20,10,30,10],[10,20,10,30])" )
     assertThrows[NoSolutionException]{
       engine.solve("dropLast(11,[10,20,10,30,10],L).").getSolution
     }
-
+   /*
     assert(engine.solve("dropAll(10,[10,20,10,30,10],[20,30]).").isSuccess)
     assert(engine.solve("dropAll(10,[10,20,10,30,10],L).").getSolution.toString == "dropAll(10,[10,20,10,30,10],[20,30])" )
     assertThrows[NoSolutionException]{
