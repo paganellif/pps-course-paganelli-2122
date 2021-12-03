@@ -5,8 +5,8 @@ dropAny(X,[H|Xs],[H|L]):- dropAny(X,Xs,L).
 
 % Es1.1
 % dropFirst: drops only the first occurrence (showing no alternative results)
-dropFirst(X,[X|T],T).
-dropFirst(X,[Y|T],T):- dropFirst(X,T,T).
+dropFirst(X,[X|T],T):- !.
+dropFirst(X,[H|Ti],[H|To]):- dropFirst(X,Ti,To).
 
 % dropLast: drops only the last occurrence (showing no alternative results)
 
