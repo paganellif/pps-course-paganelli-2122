@@ -21,7 +21,7 @@ class PrologTestLab11 extends AnyFunSuite with Matchers {
       engine.solve("dropAny(5,[10,20,10,30,10],L).").getSolution
     }
   }
-/*
+
   test("Ex1.1"){
     assert(engine.solve("dropFirst(10,[10,20,10,30,10],[20,10,30,10]).").isSuccess)
     assert(engine.solve("dropFirst(5,[5,5,5,5,5],[5,5,5,5]).").isSuccess)
@@ -30,7 +30,7 @@ class PrologTestLab11 extends AnyFunSuite with Matchers {
     assertThrows[NoSolutionException]{
       engine.solve("dropFirst(11,[10,20,10,30,10],L).").getSolution
     }
-
+/*
     assert(engine.solve("dropLast(10,[10,20,10,30,10],[10,20,10,30]).").isSuccess)
     assert(engine.solve("dropLast(10,[10,20,10,30,10],L).").getSolution.toString == "dropLast(10,[10,20,10,30,10],[10,20,10,30])" )
     assertThrows[NoSolutionException]{
