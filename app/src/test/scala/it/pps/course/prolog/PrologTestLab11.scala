@@ -46,4 +46,13 @@ class PrologTestLab11 extends AnyFunSuite with Matchers {
       engine.solve("dropAll(11,[10,20,10,30,10],[]).").getSolution
     }
   }
+
+  test("Ex2.1") {
+    assert(engine.solve("fromList([10,20,30],[e(10,20),e(20,30)]).").isSuccess)
+    assert(engine.solve("fromList([10,20],[e(10,20)]).").isSuccess)
+    assert(engine.solve("fromList([10],[]).").isSuccess)
+    assertThrows[NoSolutionException] {
+      engine.solve("fromList([10],[e(10,10)]).").getSolution
+    }
+  }
 }
