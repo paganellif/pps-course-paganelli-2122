@@ -56,12 +56,14 @@ class PrologTestLab11 extends AnyFunSuite with Matchers {
     }
   }
 
-  /*test("Ex2.2") {
+  test("Ex2.2") {
     assert(engine.solve("fromCircList([10],[e(10,10)]).").isSuccess)
     assert(engine.solve("fromCircList([10,20,30],[e(10,20),e(20,30),e(30,10)]).").isSuccess)
+    assert(engine.solve("fromCircList([10,10,10,10,10],[e(10,10),e(10,10),e(10,10),e(10,10),e(10,10)]).").isSuccess)
+    assert(engine.solve("fromCircList([10,10,10,10,20],[e(10,10),e(10,10),e(10,10),e(10,20),e(20,10)]).").isSuccess)
     assert(engine.solve("fromCircList([10,20],[e(10,20),e(20,10)]).").isSuccess)
     assertThrows[NoSolutionException] {
       engine.solve("fromCircList([10],[e(10,20)]).").getSolution
     }
-  }*/
+  }
 }
