@@ -66,4 +66,11 @@ class PrologTestLab11 extends AnyFunSuite with Matchers {
       engine.solve("fromCircList([10],[e(10,20)]).").getSolution
     }
   }
+
+  test("Ex2.3") {
+    assert(engine.solve("dropAll(e(1,2),[e(1,2),e(1,3),e(2,3)],[e(1,3),e(2,3)]).").isSuccess)
+    assert(engine.solve("dropAll(e(1,3),[e(1,2),e(1,3),e(2,3)],[e(1,2),e(2,3)]).").isSuccess)
+    //assert(engine.solve("dropAll(e(_,3),[e(1,2),e(1,3),e(2,3)],[e(1,2)]).").isSuccess)
+    //assert(engine.solve("dropNode([e(1,2),e(1,3),e(2,3)],1,[e(2,3)]).").isSuccess)
+  }
 }
