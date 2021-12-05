@@ -54,7 +54,7 @@ object AbstractTypes extends App {
 
   // Note how the trait ColouredWeightedGraph mixes-in the abstract implementation
   val g1 = new GraphImpl() with MyNodesAndEdges with ColouredWeightedGraph
-  
+
   // Without family polimorphism , e.g. in Java , we cannot
   // guarantee that both Node and Edge are coherently specialised
   g1.addEdge(MyNode("a",1),MyNode("b",1),MyEdge(1.0))
