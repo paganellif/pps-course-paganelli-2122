@@ -27,7 +27,7 @@ fromList([H1,H2|T],[e(H1,H2)|L]):- fromList([H2|T],L).
 % fromCircList(+List,-Graph)
 fromCircList([I],[e(I,I)]).
 fromCircList(H1,[T1],[e(T1,H1)|L]):- !.
-fromCircList([H1,H2|T],[e(H1,H2)|L]):- fromCircList(H1,[H1,H2|T],[e(H1,H„2)|L]).
+fromCircList([H1,H2|T],[e(H1,H2)|L]):- fromCircList(H1,[H1,H2|T],[e(H1,H2)|L]).
 fromCircList(H,[H1,H2|T],[e(H1,H2)|L]):- fromCircList(H,[H2|T],L).
 
 % Ex2.3
