@@ -41,6 +41,16 @@ trait MyNodesAndEdges { self: Graph =>
   type Edge = MyEdge
 }
 
+// Some utilities to work for any Graph family
+object GraphUtilities {
+  // g.Edge is a path-dependent type.. the Edge-type of g
+  def getEdges(g: Graph): Set[g.Edge] = (g nodes) flatMap (g outEdges(_))
+
+  // currying is here needed by Scala, to correctly type g.Edge as argument
+  def getSource(g: Graph)(e: g.Edge): Option[g.Node] = (g nodes) find (g outEdges(_) contains e)
+  def getTarget(g: Graph)(e: g.Edge): Option[g.Node] = (g nodes) find (g inEdges(_) contains e)
+}
+
 object AbstractTypes extends App {
   val g = new GraphImpl{
     type Node = String
@@ -62,4 +72,10 @@ object AbstractTypes extends App {
   g1.addEdge(MyNode("a",1),MyNode("d",4),MyEdge(3.0))
   g1.addEdge(MyNode("b",1),MyNode("d",4),MyEdge(1.0))
   println(g1.totalOutWeight(1)) // 5.0
+
+  // Scala correctly types g.Edge as being MyEdge
+  val nodes: Set[MyEdge] = GraphUtilities.getEdges(g1)
+  println(nodes) // Set(MyEdge(1.0), MyEdge(3.0), MyEdge(2.0))
+  println(GraphUtilities.getSource(g1)(MyEdge(1.0))) // Some(MyNode(a,1))
+  println(GraphUtilities.getTarget(g1)(MyEdge(1.0))) // Some(MyNode(b,2))
 }
