@@ -72,7 +72,18 @@ class PrologTestLab11 extends AnyFunSuite with Matchers {
     assert(engine.solve("dropFirst(e(1,_),[e(1,2),e(1,3),e(2,3)],[e(1,3),e(2,3)]).").isSuccess)
     assert(engine.solve("dropAll(e(1,_),[e(1,2),e(1,3),e(2,3)],[e(2,3)]).").isSuccess)
     assert(engine.solve("dropNode([e(1,2),e(1,3),e(2,3)],1,[e(2,3)]).").isSuccess)
+    assert(engine.solve("dropNode([e(1,2),e(2,3),e(1,3)],1,[e(2,3)]).").isSuccess)
+    assert(engine.solve("dropNode([e(1,2),e(2,3),e(1,3),e(3,2)],1,[e(2,3),e(3,2)]).").isSuccess)
   }
 
-  
+  test("Ex2.4") {
+    assert(engine.solve("member(2,[1,2,3,4,5]).").isSuccess)
+    assert(engine.solve("member(2,[1,2,3,2,2]).").isSuccess)
+    assert(engine.solve("member(e(1,_),[e(1,2),e(1,3),e(2,3)]).").isSuccess)
+    //assert(engine.solve("reaching([e(1,2),e(1,3),e(2,3)],1,L).").isSuccess) // -> L/[2,3]
+    //assert(engine.solve("reaching([e(1,2),e(1,2),e(2,3)],1,L).").isSuccess) // -> L/[2,2]
+    assertThrows[NoSolutionException] {
+      engine.solve("member(0,[1,2,3,2,2]).").getSolution
+    }
+  }
 }

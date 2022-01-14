@@ -34,3 +34,13 @@ fromCircList(H,[H1,H2|T],[e(H1,H2)|L]):- fromCircList(H,[H2|T],L).
 % drop all edges starting and leaving from a Node
 % use dropAll defined in 1.1
 dropNode(G,N,O):- dropAll(e(N,_),G,G2), dropAll(e(_,N),G2,O).
+
+% Ex2.4
+% reaching(+Graph, +Node, -List)
+% all the nodes that can be reached in 1 step from Node
+% possibly use findall, looking for e(Node,_) combined
+% with member(?Elem,?List)
+member(H,[H|T]):- !.
+member(X,[H|T]):- member(X,T).
+
+reaching(G,N,L)
