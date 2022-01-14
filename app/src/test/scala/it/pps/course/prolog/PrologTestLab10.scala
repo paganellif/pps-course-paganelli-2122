@@ -189,7 +189,7 @@ class PrologTestLab10 extends AnyFunSuite with Matchers {
       engine.solve("times([1,2,3],1,[1,2,3,1,2,3]).").getSolution
     }
   }
-/*
+
   test("Ex4.4-PROJ"){
     assert(engine.solve("proj([[1,2],[3,4],[5,6]],[1,3,5]).").isSuccess)
     assert(engine.solve("proj([[1],[2],[3]],[1,2,3]).").isSuccess)
@@ -198,6 +198,4 @@ class PrologTestLab10 extends AnyFunSuite with Matchers {
       engine.solve("proj([[1],[2],[3]],[1]).").getSolution
     }
   }
- */
-
 }

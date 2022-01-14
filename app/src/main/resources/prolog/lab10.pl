@@ -140,3 +140,5 @@ times(L,1,L).
 times(L1,N,L1N):- N > 0, M is N-1, append(X,L1,L1N), times(L1,M,X).
 
 % proj(List,List)
+proj([],[]).
+proj([[H|T]|T1],[H|T2]):- proj(T1,T2).
