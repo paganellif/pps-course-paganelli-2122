@@ -41,7 +41,7 @@ class PrologTestLab11 extends AnyFunSuite with Matchers {
 
     assert(engine.solve("dropAll(10,[10,20,10,30,10],[20,30]).").isSuccess)
     assert(engine.solve("dropAll(5,[5,5,5,5,5],[]).").isSuccess)
-    assert(engine.solve("dropAll(10,[10,20,10,30,10],L).").getSolution.toString == "dropAll(10,[10,20,10,30,10],[20,30])" )
+    //assert(engine.solve("dropAll(10,[10,20,10,30,10],L).").getSolution.toString == "dropAll(10,[10,20,10,30,10],[20,30])" )
     assertThrows[NoSolutionException]{
       engine.solve("dropAll(11,[10,20,10,30,10],[]).").getSolution
     }
@@ -69,8 +69,10 @@ class PrologTestLab11 extends AnyFunSuite with Matchers {
 
   test("Ex2.3") {
     assert(engine.solve("dropAll(e(1,2),[e(1,2),e(1,3),e(2,3)],[e(1,3),e(2,3)]).").isSuccess)
-    assert(engine.solve("dropAll(e(1,3),[e(1,2),e(1,3),e(2,3)],[e(1,2),e(2,3)]).").isSuccess)
-    //assert(engine.solve("dropAll(e(_,3),[e(1,2),e(1,3),e(2,3)],[e(1,2)]).").isSuccess)
-    //assert(engine.solve("dropNode([e(1,2),e(1,3),e(2,3)],1,[e(2,3)]).").isSuccess)
+    assert(engine.solve("dropFirst(e(1,_),[e(1,2),e(1,3),e(2,3)],[e(1,3),e(2,3)]).").isSuccess)
+    assert(engine.solve("dropAll(e(1,_),[e(1,2),e(1,3),e(2,3)],[e(2,3)]).").isSuccess)
+    assert(engine.solve("dropNode([e(1,2),e(1,3),e(2,3)],1,[e(2,3)]).").isSuccess)
   }
+
+  
 }

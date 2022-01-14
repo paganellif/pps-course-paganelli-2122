@@ -13,10 +13,9 @@ dropLast(X,[H|Ti],[H|To]):- dropLast(X,Ti,To).
 dropLast(X,[X|T],T):- !.
 
 % dropAll: drop all occurrences, returning a single list as result
-dropAll(_,[],[]):- !.
-dropAll(X,[X|Ti],To):- dropAll(X,Ti,To).
-dropAll(X,[H|Ti],[H|To]):- dropAll(X,Ti,To).
-
+dropAll(_,[],[]).
+dropAll(X,[X|T],_):- dropAll(X,T,_).
+dropAll(X,[H|T],[H|_]):- dropAll(X,T,_).
 
 % Ex2.1
 % fromList(+List,-Graph)
