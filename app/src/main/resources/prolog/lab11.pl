@@ -43,4 +43,4 @@ dropNode(G,N,O):- dropAll(e(N,_),G,G2), dropAll(e(_,N),G2,O).
 member(H,[H|T]):- !.
 member(X,[H|T]):- member(X,T).
 
-reaching(G,N,L)
+%reaching(G,N,L)
