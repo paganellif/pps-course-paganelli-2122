@@ -40,7 +40,7 @@ dropNode(G,N,O):- dropAll(e(N,_),G,G2), dropAll(e(_,N),G2,O).
 % all the nodes that can be reached in 1 step from Node
 % possibly use findall, looking for e(Node,_) combined
 % with member(?Elem,?List)
-member(H,[H|T]):- !.
+member(H,[H|T]).
 member(X,[H|T]):- member(X,T).
 
-%reaching(G,N,L)
+reaching(G,N,L):- findall(X,member(e(N,X),G),L).
