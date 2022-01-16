@@ -96,4 +96,12 @@ class PrologTestLab11 extends AnyFunSuite with Matchers {
       engine.solve("anypath([e(1,2),e(1,3),e(2,3)],4,3,L).").getSolution
     }
   }
+
+  test("Ex2.6") {
+    assert(engine.solve("allreaching([e(1,2),e(2,3),e(3,5)],1,L).").getSolution.toString == "allreaching([e(1,2),e(2,3),e(3,5)],1,[2,3,5])")
+    assert(engine.solve("allreaching([e(1,3),e(1,4),e(4,5)],1,[3,4,5]).").getSolution.toString == "allreaching([e(1,3),e(1,4),e(4,5)],1,[3,4,5])")
+    assertThrows[NoSolutionException] {
+      engine.solve("allreaching([e(1,3),e(1,4),e(4,5)],6,[3,4,5]).").getSolution
+    }
+  }
 }

@@ -50,6 +50,12 @@ reaching(G,N,L):- findall(X,member(e(N,X),G),L).
 % a path from N1 to N2 exists if there is a e(N1,N2)
 % a path from N1 to N2 is OK if N3 can be reached from N1,
 % and then there is a path from N2 to N3, recursively
-
 anypath(G,N1,N2,[e(N1,N2)]):- member(e(N1,N2),G).
 anypath(G,N1,N2,[e(N1,N3)|T]):- member(e(N1,N3),G), anypath(G,N3,N2,T).
+
+% Ex2.6
+% allreaching(+Graph, +Node, -List)
+% all the nodes that can be reached from Node
+% Suppose the graph is NOT circular!
+% Use findall and anyPath!
+allreaching(G,N,L):- findall(N2,anypath(G,N,N2,LL),L).
