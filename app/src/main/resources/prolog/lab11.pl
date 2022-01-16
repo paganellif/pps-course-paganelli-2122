@@ -42,5 +42,14 @@ dropNode(G,N,O):- dropAll(e(N,_),G,G2), dropAll(e(_,N),G2,O).
 % with member(?Elem,?List)
 member(H,[H|T]).
 member(X,[H|T]):- member(X,T).
-
 reaching(G,N,L):- findall(X,member(e(N,X),G),L).
+
+% Ex2.5
+% anypath(+Graph, +Node1, +Node2, -ListPath)
+% a path from Node1 to Node2
+% a path from N1 to N2 exists if there is a e(N1,N2)
+% a path from N1 to N2 is OK if N3 can be reached from N1,
+% and then there is a path from N2 to N3, recursively
+
+anypath(G,N1,N2,[e(N1,N2)]):- member(e(N1,N2),G).
+anypath(G,N1,N2,[e(N1,N3)|T]):- member(e(N1,N3),G), anypath(G,N3,N2,T).
